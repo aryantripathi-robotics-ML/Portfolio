@@ -516,25 +516,96 @@
     .datebar{ top: 16px; left: 16px; }
   }
 
-  /* ================= CENTRED SECTION PAGES ================= */
-  #section-view{ text-align:center; }
-  #section-view .back-btn{ float:none; }
-  .section-head h2{ transform-origin:center; }
-  .content-wrap{ margin-left:auto; margin-right:auto; }
-  .lede, .card p, .pursuit p, .agent-note, .fine{ margin-left:auto; margin-right:auto; }
-  .card{ border-left:none; padding:4px 0 26px 0; border-bottom:1px solid var(--line); }
-  .tag-row, .agent-pick, .game-actions{ justify-content:center; }
-  .sim-grid, .game-hud, .game-wrap, table.res, .contact-grid{ margin-left:auto; margin-right:auto; }
-  .game-hud{ justify-content:center; }
-  .pursuit{ justify-content:center; align-items:center; text-align:center; }
-  .pursuit .dot{ margin-top:0; }
-  .contact-row{ justify-content:center; flex-direction:column; gap:4px; }
-  table.res th, table.res td{ text-align:center; }
+  /* ================= ABOUT PHOTO ================= */
   .about-photo{
-    width:clamp(150px, 22vw, 210px); aspect-ratio:1; object-fit:cover; object-position:50% 25%;
-    border-radius:50%; display:block; margin:0 auto 30px;
-    border:2px solid var(--blue); box-shadow:0 0 0 6px rgba(47,92,255,0.12), 0 0 34px rgba(47,92,255,0.35);
+    float:right; width:clamp(150px, 20vw, 220px); aspect-ratio:1; object-fit:cover; object-position:50% 28%;
+    margin:0 0 20px 32px; border-radius:4px;
+    border:2px solid var(--blue); box-shadow:8px 8px 0 rgba(47,92,255,0.25), 0 0 34px rgba(47,92,255,0.3);
   }
+  @media (max-width:700px){ .about-photo{ float:none; display:block; margin:0 0 22px 0; } }
+
+  /* ================= TREASURE CHEST ================= */
+  .chest{
+    position:fixed; z-index:7; right:clamp(14px,3vw,46px); bottom:clamp(14px,4vh,40px);
+    width:clamp(118px,12vw,190px); aspect-ratio:1/0.82; padding:0; border:0; background:none; cursor:pointer;
+    -webkit-user-select:none; user-select:none; filter:drop-shadow(0 10px 18px rgba(0,0,0,.55));
+    animation:chestBob 3.2s ease-in-out infinite;
+  }
+  .chest img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:50% 100%; pointer-events:none; }
+  .chest-tag{
+    position:absolute; left:16%; top:62%; width:34%; text-align:center; pointer-events:none;
+    font-family:'Anton',sans-serif; font-size:clamp(14px,1.7vw,24px); line-height:1; letter-spacing:.04em;
+    color:#ffe9a8; text-shadow:0 0 8px rgba(255,200,80,.9), 0 1px 0 #6b4a10, 0 0 2px #000;
+    transform:rotate(-2deg);
+  }
+  .chest-hint{
+    position:absolute; left:0; right:0; top:100%; margin-top:4px; text-align:center; pointer-events:none;
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--mute);
+  }
+  .chest:hover, .chest:focus-visible{ filter:drop-shadow(0 0 16px rgba(255,200,90,.85)) drop-shadow(0 10px 18px rgba(0,0,0,.55)); outline:none; }
+  .chest.open{ animation:none; filter:drop-shadow(0 0 22px rgba(255,200,90,.9)) drop-shadow(0 10px 18px rgba(0,0,0,.55)); }
+  @keyframes chestBob{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-6px) } }
+  #mech-flash{
+    position:fixed; inset:0; z-index:60; pointer-events:none; opacity:0;
+    background:radial-gradient(circle at 88% 90%, #fff6d0 0%, #ffcf6a 25%, rgba(255,140,40,.55) 55%, transparent 80%);
+  }
+  #mech-flash.go{ animation:mechFlash 900ms ease-in-out forwards; }
+  @keyframes mechFlash{ 0%{opacity:0} 35%{opacity:1} 60%{opacity:1} 100%{opacity:0} }
+
+  /* ================= MECH THEME ================= */
+  .mech-bg{
+    position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0; visibility:hidden;
+    background:#0a0710 url(assets/mech-bg.jpg) 62% 50% / cover no-repeat; transition:opacity 700ms ease;
+  }
+  body.mech .mech-bg{ opacity:1; visibility:visible; }
+  body.mech.no-photo .mech-bg{ opacity:.4; }
+  body.mech .ocean, body.mech .rig, body.mech #rig-zap, body.mech #zap{ display:none; }
+  body.mech{ --blue:#ff8a2f; --blue-dim:#b04a12; --crimson:#ff3d5a; --line:rgba(255,235,210,.16); }
+  body.mech .masthead h1{ text-shadow:4px 4px 0 rgba(255,110,40,.5), 0 0 34px rgba(255,150,60,.35); }
+  body.mech .m-label{ text-shadow:3px 3px 0 rgba(255,110,40,.6), 0 0 10px rgba(0,0,0,.6); }
+  body.mech .section-head h2{ text-shadow:0 0 24px rgba(255,138,47,.4); }
+  body.mech .about-photo{ box-shadow:8px 8px 0 rgba(255,138,47,.28), 0 0 34px rgba(255,138,47,.3); }
+  .menu-list li{ position:relative; }
+  body.mech .menu-item::before{
+    inset:5% 0;
+    background:linear-gradient(115deg, rgba(255,255,255,.24) 0%, rgba(255,255,255,.07) 36%, rgba(150,205,255,.12) 62%, rgba(255,255,255,.2) 100%);
+    -webkit-backdrop-filter:blur(6px) saturate(1.3); backdrop-filter:blur(6px) saturate(1.3);
+    clip-path:none; border:1px solid rgba(255,255,255,.5);
+    box-shadow:inset 0 0 20px rgba(255,255,255,.14), 0 8px 26px rgba(0,0,0,.4);
+  }
+  body.mech .menu-item::after{
+    content:''; position:absolute; inset:5% 0; z-index:-1; pointer-events:none;
+    background:linear-gradient(105deg, transparent 40%, rgba(255,255,255,.42) 48%, transparent 56%) no-repeat;
+    background-size:260% 100%; background-position:115% 0;
+    transition:background-position 800ms cubic-bezier(.2,.8,.2,1);
+  }
+  body.mech .menu-item:hover::after, body.mech .menu-item:focus-visible::after{ background-position:-15% 0; }
+  body.mech .menu-item:hover::before, body.mech .menu-item:focus-visible::before{
+    background:linear-gradient(115deg, rgba(255,214,160,.36) 0%, rgba(255,255,255,.12) 40%, rgba(255,170,90,.2) 100%);
+    border-color:#ffd9a8;
+  }
+  .shard{ position:absolute; margin:0; pointer-events:none; z-index:9; will-change:transform,opacity; }
+  .pilot{ position:fixed; left:0; top:0; z-index:50; pointer-events:none; display:none; will-change:transform,opacity; }
+  .pilot.on{ display:block; }
+  .pilot-flip{ position:absolute; inset:0; will-change:transform; }
+  .pilot i{
+    position:absolute; inset:0; background:url(assets/mech-sprite.webp) no-repeat; background-size:400% 200%;
+    transition:opacity 160ms ease;
+    filter:drop-shadow(0 0 12px rgba(130,180,255,.4)) drop-shadow(0 16px 20px rgba(0,0,0,.45));
+  }
+  .pilot .pilot-b{ opacity:0; }
+  .pilot.fast .pilot-a{ opacity:0; }
+  .pilot.fast .pilot-b{ opacity:1; }
+  .pilot-trail{ position:fixed; inset:0; width:100%; height:100%; z-index:49; pointer-events:none; display:none; }
+  .pilot-trail.on{ display:block; }
+  .mech-hit{
+    position:fixed; z-index:49; pointer-events:none; width:240px; height:240px; margin:-120px 0 0 -120px; border-radius:50%;
+    background:radial-gradient(circle,#fff 0%,#ffe2a8 25%,rgba(255,120,40,.5) 55%,transparent 72%);
+    animation:mechHit 480ms ease-out forwards;
+  }
+  @keyframes mechHit{ 0%{opacity:1;transform:scale(.2)} 100%{opacity:0;transform:scale(1.6)} }
+  .stage.quake{ animation:quake 340ms linear; }
+  @keyframes quake{ 0%,100%{transform:translate(0,0)} 15%{transform:translate(-7px,4px)} 35%{transform:translate(6px,-5px)} 55%{transform:translate(-4px,-3px)} 75%{transform:translate(3px,4px)} }
 </style>
 </head>
 <body>
@@ -545,6 +616,7 @@
   <div class="streaks"></div>
   <div class="bubbles" id="bubbles"></div>
 </div>
+<div class="mech-bg" id="mech-bg" aria-hidden="true"></div>
 <div class="side-shade"></div>
 <div class="top-shade"></div>
 <div class="rig" id="rig" aria-hidden="true">
@@ -558,6 +630,7 @@
 </div>
 <canvas id="rig-zap" aria-hidden="true"></canvas>
 <canvas id="zap" aria-hidden="true"></canvas>
+<div id="mech-flash" aria-hidden="true"></div>
 
 <div class="datebar" id="datebar">
   <div class="date-chip"><span id="date-num">--/--</span></div>
@@ -587,6 +660,12 @@
       <li><button class="menu-item" data-target="pursuits"><span class="m-label">CURRENT PURSUITS</span><span class="m-sub">right now</span></button></li>
       <li><button class="menu-item" data-target="contact"><span class="m-label">CONTACT</span><span class="m-sub">get in touch</span></button></li>
     </ul>
+
+    <button class="chest" id="chest" type="button" aria-pressed="false" aria-label="Open the treasure chest">
+      <img src="assets/chest-closed.webp" alt="">
+      <span class="chest-tag">uWu</span>
+      <span class="chest-hint">open me</span>
+    </button>
 
     <div class="footline">
       <a href="https://github.com/aryantripathi-robotics-ML" target="_blank" rel="noopener">github.com/aryantripathi-robotics-ML</a>
@@ -1451,6 +1530,7 @@
   })();
 
   function zapOn(btn, ms){
+    if(document.body.classList.contains('mech')) return;
     AUV.point(btn);
     if(zapReduce) { btn.classList.add('zap'); return; }
     menuLis.forEach(function(li){ li.classList.remove('hot'); li.firstElementChild.classList.remove('zap'); });
@@ -1476,6 +1556,7 @@
       /* touching an item discharges: a bright burst and a short buzz, then the page opens */
       if(btn.dataset.busy) return;
       btn.dataset.busy = '1';
+      if(document.body.classList.contains('mech')){ mechShatter(btn); return; }
       zapOn(btn, 900);
       /* the AUV fires a charge down its arm into the item; lamps flip green when it lands */
       var wait = AUV.strike(btn, function(){
@@ -1491,6 +1572,307 @@
       }, wait);
     });
   });
+
+
+  /* =====================================================================
+     TREASURE CHEST + MECH THEME — the chest swaps the theme; in mech mode
+     every menu item is a glass pane that a mech punches through
+     ===================================================================== */
+  var CHEST_CLOSED = 'assets/chest-closed.webp', CHEST_OPEN = 'assets/chest-open.webp', MECH_SPRITE = 'assets/mech-sprite.webp';
+  [CHEST_OPEN, MECH_SPRITE, 'assets/mech-bg.jpg'].forEach(function(u){ var i = new Image(); i.src = u; });
+  var chestEl = document.getElementById('chest');
+  var chestImg = chestEl.querySelector('img');
+  var chestHint = chestEl.querySelector('.chest-hint');
+  var mechFlashEl = document.getElementById('mech-flash');
+  var mechReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function applyMech(on){
+    document.body.classList.toggle('mech', on);
+    chestEl.setAttribute('aria-pressed', on ? 'true' : 'false');
+    chestEl.setAttribute('aria-label', on ? 'Close the treasure chest' : 'Open the treasure chest');
+    chestImg.src = on ? CHEST_OPEN : CHEST_CLOSED;
+    chestEl.classList.toggle('open', on);
+    chestHint.textContent = on ? 'close it' : 'open me';
+  }
+  chestEl.addEventListener('click', function(){
+    if(chestEl.dataset.busy) return;
+    var on = !document.body.classList.contains('mech');
+    if(mechReduce){ applyMech(on); return; }
+    chestEl.dataset.busy = '1';
+    if(on){ chestImg.src = CHEST_OPEN; chestEl.classList.add('open'); }
+    else Pilot.recall();
+    setTimeout(function(){ mechFlashEl.classList.add('go'); }, on ? 420 : 0);
+    setTimeout(function(){ applyMech(on); if(on) Pilot.launch(); }, on ? 760 : 300);
+    setTimeout(function(){ mechFlashEl.classList.remove('go'); delete chestEl.dataset.busy; }, on ? 1400 : 950);
+  });
+
+  /* cut the pane into jittered triangles */
+  function shardPolys(w, h){
+    var cols = Math.max(5, Math.round(w / 70)), rows = 3, pts = [], r, c;
+    for(r = 0; r <= rows; r++){
+      pts[r] = [];
+      for(c = 0; c <= cols; c++){
+        var jx = (c === 0 || c === cols) ? 0 : (Math.random() - .5) * (w / cols) * .7;
+        var jy = (r === 0 || r === rows) ? 0 : (Math.random() - .5) * (h / rows) * .7;
+        pts[r][c] = [c * w / cols + jx, r * h / rows + jy];
+      }
+    }
+    var polys = [];
+    for(r = 0; r < rows; r++) for(c = 0; c < cols; c++){
+      var a = pts[r][c], b = pts[r][c+1], d = pts[r+1][c], e = pts[r+1][c+1];
+      if(Math.random() < .5){ polys.push([a, b, e]); polys.push([a, e, d]); }
+      else { polys.push([a, b, d]); polys.push([b, e, d]); }
+    }
+    return polys;
+  }
+
+  /* ---------- the pilot: a mech that flies with the cursor ---------- */
+  var Pilot = (function(){
+    var el = document.createElement('div');
+    el.className = 'pilot'; el.setAttribute('aria-hidden', 'true');
+    el.innerHTML = '<div class="pilot-flip"><i class="pilot-a"></i><i class="pilot-b"></i></div>';
+    document.body.appendChild(el);
+    var flipEl = el.firstChild, la = flipEl.children[0], lb = flipEl.children[1];
+    var cv = document.createElement('canvas');
+    cv.className = 'pilot-trail'; cv.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(cv);
+    var ctx = cv.getContext('2d'), dpr = 1, W = 180, H = 240;
+    var finePointer = !window.matchMedia || window.matchMedia('(pointer: fine)').matches;
+
+    function resize(){
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cv.width = innerWidth * dpr; cv.height = innerHeight * dpr;
+      W = Math.max(118, Math.min(innerWidth * .13, 210)); H = W * 512 / 384;
+      el.style.width = W + 'px'; el.style.height = H + 'px';
+    }
+    resize(); addEventListener('resize', resize);
+
+    function setFrame(layer, n){ layer.style.backgroundPosition = ((n % 4) / 3 * 100) + '% ' + (Math.floor(n / 4) * 100) + '%'; }
+    setFrame(la, 7); setFrame(lb, 0);
+
+    function clamp(v, lo, hi){ return v < lo ? lo : v > hi ? hi : v; }
+    function lerp(a, b, t){ return a + (b - a) * t; }
+    function easeOut(t){ return 1 - Math.pow(1 - t, 3); }
+    function easeIn(t){ return t * t * t; }
+
+    var mode = 'off', raf = 0, last = 0;
+    var p = { x:0, y:0 }, v = { x:0, y:0 };
+    var cur = { x:innerWidth * .62, y:innerHeight * .45 }, prev = { x:cur.x, y:cur.y }, cvx = 0;
+    var face = -1, flip = 1, tilt = 0, scale = 1, alpha = 0, fast = false, overPane = false, ring = 13, spin = 0;
+    var kick = null, recall = null, parts = [];
+
+    addEventListener('pointermove', function(e){
+      cur.x = e.clientX; cur.y = e.clientY;
+      overPane = !!(e.target && e.target.closest && e.target.closest('.menu-item'));
+    }, { passive:true });
+
+    function chestCentre(){
+      var r = chestEl.getBoundingClientRect();
+      return { x:r.left + r.width / 2, y:r.top + r.height * .35 };
+    }
+
+    function emit(x, y, dx, dy, n, hot){
+      for(var i = 0; i < n && parts.length < 320; i++){
+        parts.push({
+          x:x + (Math.random() - .5) * 10, y:y + (Math.random() - .5) * 10,
+          vx:dx * (1 + Math.random() * 1.5) + (Math.random() - .5) * 1.4,
+          vy:dy * (1 + Math.random() * 1.5) + (Math.random() - .5) * 1.4,
+          life:1, decay:.022 + Math.random() * .03, size:1.4 + Math.random() * 2.8, hot:!!hot
+        });
+      }
+    }
+
+    function sparks(x, y, dir){
+      for(var i = 0; i < 46; i++){
+        var a = Math.random() * Math.PI * 2, sp = 3 + Math.random() * 9;
+        parts.push({ x:x, y:y, vx:Math.cos(a) * sp + dir * 4, vy:Math.sin(a) * sp - 1.5,
+          life:1, decay:.02 + Math.random() * .025, size:1.2 + Math.random() * 2.4, hot:true, grav:.22 });
+      }
+    }
+
+    function draw(now){
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+      ctx.globalCompositeOperation = 'lighter';
+      for(var i = parts.length - 1; i >= 0; i--){
+        var q = parts[i];
+        q.x += q.vx; q.y += q.vy; q.vx *= .95; q.vy = q.vy * .95 + (q.grav || -.03);
+        q.life -= q.decay;
+        if(q.life <= 0){ parts.splice(i, 1); continue; }
+        var t = q.life, r = q.size * (q.hot ? 1 : .6 + t * .6);
+        /* white-blue core cooling to orange embers */
+        var col = q.hot ? '255,' + Math.round(150 + 90 * t) + ',' + Math.round(60 + 140 * t * t)
+                        : Math.round(lerp(255, 150, t)) + ',' + Math.round(lerp(140, 205, t)) + ',' + Math.round(lerp(60, 255, t));
+        ctx.fillStyle = 'rgba(' + col + ',' + (t * .16).toFixed(3) + ')';
+        ctx.beginPath(); ctx.arc(q.x, q.y, r * 3.2, 0, 6.2832); ctx.fill();
+        ctx.fillStyle = 'rgba(' + col + ',' + (t * .9).toFixed(3) + ')';
+        ctx.beginPath(); ctx.arc(q.x, q.y, r, 0, 6.2832); ctx.fill();
+      }
+      ctx.globalCompositeOperation = 'source-over';
+      /* targeting reticle at the cursor */
+      if(finePointer && mode !== 'off' && !recall){
+        ring = lerp(ring, overPane ? 22 : 13, .18);
+        spin += overPane ? .06 : .02;
+        ctx.save(); ctx.translate(cur.x, cur.y);
+        ctx.strokeStyle = overPane ? 'rgba(255,190,110,.95)' : 'rgba(255,170,90,.6)';
+        ctx.lineWidth = 1.5;
+        for(var k = 0; k < 4; k++){
+          ctx.beginPath(); ctx.arc(0, 0, ring, spin + k * 1.5708 + .25, spin + k * 1.5708 + 1.3); ctx.stroke();
+        }
+        if(overPane){
+          ctx.beginPath();
+          for(var j = 0; j < 4; j++){
+            var an = j * 1.5708 - spin * .5;
+            ctx.moveTo(Math.cos(an) * (ring + 4), Math.sin(an) * (ring + 4));
+            ctx.lineTo(Math.cos(an) * (ring + 10), Math.sin(an) * (ring + 10));
+          }
+          ctx.stroke();
+        }
+        ctx.fillStyle = 'rgba(255,220,170,.9)';
+        ctx.beginPath(); ctx.arc(0, 0, 1.6, 0, 6.2832); ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function tick(now){
+      var k = Math.min(3, (now - last) / 16.67 || 1); last = now;
+      if(mode === 'follow'){
+        cvx = cvx * .82 + (cur.x - prev.x) * .18; prev.x = cur.x; prev.y = cur.y;
+        if(cvx > 2.2) face = 1; else if(cvx < -2.2) face = -1;
+        var tx = clamp(cur.x - face * W * .42, W * .3, innerWidth - W * .3);
+        var ty = clamp(cur.y - H * .2, H * .3, innerHeight - H * .28) + Math.sin(now / 540) * 7;
+        v.x += (tx - p.x) * .018 * k; v.y += (ty - p.y) * .018 * k;
+        var damp = Math.pow(.85, k); v.x *= damp; v.y *= damp;
+        p.x += v.x * k; p.y += v.y * k;
+        var sp = Math.hypot(v.x, v.y);
+        if(!fast && sp > 7) fast = true; else if(fast && sp < 3.5) fast = false;
+        el.classList.toggle('fast', fast);
+        tilt = lerp(tilt, clamp(v.x * 1.1, -18, 18) + Math.sin(now / 900) * 2, .14 * k);
+        scale = lerp(scale, 1, .1 * k); alpha = lerp(alpha, 1, .08 * k);
+        /* thrusters: a steady trickle when hovering, a stream when moving */
+        var bx = sp > 1.5 ? -v.x / sp : 0, by = sp > 1.5 ? -v.y / sp : 1;
+        emit(p.x + bx * W * .22, p.y + H * .12 + by * H * .08, bx * 1.6, by * 1.6 + .4, 1 + Math.min(5, sp * .35), false);
+      } else if(mode === 'kick'){
+        var t = now - kick.t0;
+        if(t < 190){
+          var e1 = easeOut(t / 190);
+          p.x = lerp(kick.p0.x, kick.pb.x, e1); p.y = lerp(kick.p0.y, kick.pb.y, e1);
+          setFrame(la, t < 95 ? 1 : 2);
+        } else if(t < 290){
+          var e2 = easeIn((t - 190) / 100);
+          p.x = lerp(kick.pb.x, kick.pk.x, e2); p.y = lerp(kick.pb.y, kick.pk.y, e2);
+          setFrame(la, 3);
+          emit(p.x, p.y + H * .1, -kick.f * 3, 0, 4, false);
+        } else {
+          if(!kick.hit){ kick.hit = true; setFrame(la, 4); sparks(kick.hx, kick.hy, kick.f); kick.cb(kick.f); }
+          var r = Math.sin(Math.min(1, (t - 290) / 140) * Math.PI) * 10;
+          p.x = kick.pk.x - kick.f * r; p.y = kick.pk.y;
+          setFrame(la, t < 410 ? 4 : t < 520 ? 5 : 6);
+          if(t > 640){ setFrame(la, 7); v.x = -kick.f * 6; v.y = -3; mode = 'follow'; kick = null; }
+        }
+        tilt = lerp(tilt, 0, .3 * k);
+        scale = lerp(scale, 1.4, .2 * k); alpha = 1;
+      } else if(mode === 'recall'){
+        var tr = Math.min(1, (now - recall.t0) / 320), c = chestCentre(), er = easeIn(tr);
+        p.x = lerp(recall.p0.x, c.x, er); p.y = lerp(recall.p0.y, c.y, er);
+        scale = lerp(1, .15, er); alpha = 1 - er * er; tilt = lerp(tilt, 0, .2);
+        emit(p.x, p.y, 0, 1, 2, true);
+        if(tr >= 1){ mode = 'idle-off'; recall = null; }
+      }
+      flip = lerp(flip, face === -1 ? 1 : -1, .2 * k);
+      el.style.transform = 'translate(' + (p.x - W / 2).toFixed(1) + 'px,' + (p.y - H / 2).toFixed(1) + 'px) rotate(' + tilt.toFixed(2) + 'deg) scale(' + scale.toFixed(3) + ')';
+      el.style.opacity = alpha.toFixed(3);
+      flipEl.style.transform = 'scaleX(' + flip.toFixed(3) + ')';
+      draw(now);
+      if(mode === 'idle-off'){
+        if(parts.length){ raf = requestAnimationFrame(tick); return; }
+        mode = 'off'; raf = 0;
+        el.classList.remove('on'); cv.classList.remove('on');
+        ctx.clearRect(0, 0, cv.width, cv.height);
+        return;
+      }
+      raf = requestAnimationFrame(tick);
+    }
+
+    function run(){ if(!raf){ last = performance.now(); raf = requestAnimationFrame(tick); } }
+
+    return {
+      active:function(){ return mode === 'follow' || mode === 'kick'; },
+      cursor:function(){ return cur; },
+      launch:function(){
+        if(mechReduce) return;
+        var c = chestCentre();
+        p.x = c.x; p.y = c.y; v.x = -16; v.y = -12; scale = .2; alpha = 0; tilt = -10; face = -1; flip = 1;
+        setFrame(la, 7); fast = false; mode = 'follow'; kick = null; recall = null;
+        el.classList.add('on'); cv.classList.add('on');
+        emit(c.x, c.y, 0, -1, 30, true);
+        run();
+      },
+      recall:function(){
+        if(mode === 'off' || mode === 'idle-off') return;
+        kick = null; setFrame(la, 7); el.classList.remove('fast');
+        mode = 'recall'; recall = { t0:performance.now(), p0:{ x:p.x, y:p.y } };
+        run();
+      },
+      kick:function(hx, hy, cb){
+        var f = hx < p.x ? -1 : 1;
+        face = f; fast = false; el.classList.remove('fast');
+        /* where the kicking foot sits in the contact frame, relative to the mech's centre */
+        var S = 1.4, fx = f * .36 * W * S, fy = -.28 * H * S;
+        var pk = { x:hx - fx, y:hy - fy };
+        var away = { x:p.x - pk.x, y:p.y - pk.y }, d = Math.hypot(away.x, away.y) || 1;
+        var pb = { x:p.x + away.x / d * 60 - f * 30, y:p.y + away.y / d * 40 - 26 };
+        kick = { t0:performance.now(), p0:{ x:p.x, y:p.y }, pb:pb, pk:pk, f:f, hx:hx, hy:hy, cb:cb, hit:false };
+        mode = 'kick';
+        run();
+      }
+    };
+  })();
+
+  function mechShatter(btn){
+    var target = btn.getAttribute('data-target');
+    if(mechReduce || !Pilot.active()){ setTimeout(function(){ delete btn.dataset.busy; openSection(target); }, 0); return; }
+    var li = btn.parentNode, w = btn.offsetWidth, h = btn.offsetHeight;
+    var rc = btn.getBoundingClientRect(), c = Pilot.cursor();
+    var inside = c.x >= rc.left && c.x <= rc.right && c.y >= rc.top && c.y <= rc.bottom;
+    var hx = inside ? c.x : rc.left + rc.width * .62, hy = rc.top + rc.height / 2;
+    var lx = hx - rc.left;
+    Pilot.kick(hx, hy, function(f){
+      var hit = document.createElement('div');
+      hit.className = 'mech-hit'; hit.style.left = hx + 'px'; hit.style.top = hy + 'px';
+      document.body.appendChild(hit);
+      stageEl.classList.add('quake');
+      if(navigator.vibrate && (!navigator.userActivation || navigator.userActivation.hasBeenActive)){ try{ navigator.vibrate([30, 30, 50]); }catch(e){} }
+      btn.style.visibility = 'hidden';
+      var shards = [];
+      shardPolys(w, h).forEach(function(poly){
+        var sh = btn.cloneNode(true);
+        sh.removeAttribute('data-target'); sh.setAttribute('tabindex', '-1'); sh.setAttribute('aria-hidden', 'true');
+        sh.classList.add('shard'); sh.style.visibility = 'visible';
+        sh.style.left = btn.offsetLeft + 'px'; sh.style.top = btn.offsetTop + 'px';
+        sh.style.clipPath = 'polygon(' + poly.map(function(q){ return q[0].toFixed(1) + 'px ' + q[1].toFixed(1) + 'px'; }).join(',') + ')';
+        li.appendChild(sh); shards.push(sh);
+        var cx = (poly[0][0] + poly[1][0] + poly[2][0]) / 3, cy = (poly[0][1] + poly[1][1] + poly[2][1]) / 3;
+        var dx = cx - lx, dy = cy - h / 2;
+        /* shards burst out from the point of impact and carry on in the kick's direction */
+        var vx = dx * (1.1 + Math.random() * 1.4) + f * (60 + Math.random() * 300);
+        var vy = dy * (1 + Math.random()) - 40 - Math.random() * 90;
+        var rot = (Math.random() - .5) * 420;
+        var fall = 380 + Math.random() * 380;
+        sh.animate([
+          { transform:'translate(0,0) rotate(0deg)', opacity:1 },
+          { transform:'translate(' + vx * .45 + 'px,' + (vy * .45 - 20) + 'px) rotate(' + rot * .4 + 'deg)', opacity:1, offset:.3 },
+          { transform:'translate(' + vx + 'px,' + (vy + fall) + 'px) rotate(' + rot + 'deg)', opacity:0 }
+        ], { duration:900 + Math.random() * 500, easing:'cubic-bezier(.3,.1,.6,1)', fill:'forwards' });
+      });
+      setTimeout(function(){ stageEl.classList.remove('quake'); hit.remove(); }, 500);
+      setTimeout(function(){ openSection(target); }, 900);
+      setTimeout(function(){
+        shards.forEach(function(x){ x.remove(); });
+        btn.style.visibility = ''; delete btn.dataset.busy;
+      }, 1700);
+    });
+  }
 
   backBtn.addEventListener('click', closeSection);
 
